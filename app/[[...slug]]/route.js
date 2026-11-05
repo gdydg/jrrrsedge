@@ -266,7 +266,7 @@ async function getStorageData() {
             let raw = await JRS_KV.get(KV_CACHE_KEY);
             if (raw) {
                 let parsed = JSON.parse(raw);
-                if (Date.now() - parsed.updated_at > 15 * 60 * 1000) {
+                if (Date.now() - parsed.updated_at > 4 * 60 * 1000) {
                     updateStorage().catch(() => {}); // 后台异步刷新
                 }
                 return parsed.data;
@@ -276,7 +276,7 @@ async function getStorageData() {
 
     // 退回内存缓存
     if (globalThis.__JRS_CACHE__ && globalThis.__JRS_CACHE__.data) {
-        if (Date.now() - globalThis.__JRS_CACHE__.updated_at > 15 * 60 * 1000) {
+        if (Date.now() - globalThis.__JRS_CACHE__.updated_at > 4 * 60 * 1000) {
             updateStorage().catch(() => {});
         }
         return globalThis.__JRS_CACHE__.data;
